@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
+
 import SearchBar from '../SearchBar/SearchBar';
-import Playlist  from '../Playlist/Playlist'
-import Results   from '../Results/Results'
+import AppPlaylist  from '../AppPlaylist/AppPlaylist'
 import Spotify   from '../../util/Spotify'
 
 class App extends React.Component {
@@ -15,8 +15,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <SearchBar />
-        <Results />
-        <Playlist />
+        <AppPlaylist />
       </div>
     );
   }

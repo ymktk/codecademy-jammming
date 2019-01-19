@@ -7,10 +7,8 @@ class Track extends React.Component {
     return (
       <div className="Track">
         <div className="Track-information">
-          {/* 曲名 */}
-          <h3>雑草挽歌</h3> 
-          {/* アーティスト | アルバム */}
-          <p>おっさんず | おっさんアルバム</p>
+          <h3>{this.props.track.name}</h3> 
+          <p>{this.props.track.artistsName} | {this.props.track.albumName}</p>
         </div>
         <a href="*" className="Track-action">+</a>
       </div>          

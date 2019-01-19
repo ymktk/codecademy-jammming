@@ -8,7 +8,7 @@ class AppPlaylist extends React.Component {
 
   render() {
     return (
-      <div className="AppPlaylist">
+      <div className="App-playlist">
         <Results />
         <Playlist />
       </div>

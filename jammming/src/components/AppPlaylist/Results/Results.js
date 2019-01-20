@@ -1,7 +1,7 @@
 import React from 'react';
 import './Results.css';
 
-import Track from '../../Track/Track';
+import Track from '../Track/Track';
 
 class Results extends React.Component {
   

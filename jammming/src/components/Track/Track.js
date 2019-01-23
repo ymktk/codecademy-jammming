@@ -3,14 +3,22 @@ import './Track.css';
 
 class Track extends React.Component {
 
+  renderAction() {
+    if(isRemoval) {
+      return "-";
+    } else {
+      return "+";
+    }
+  }
+
   render() {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{this.props.track.name}</h3> 
-          <p>{this.props.track.artistsName} | {this.props.track.albumName}</p>
+          <h3>name</h3> 
+          <p>artistsName | albumName</p>
         </div>
-        <a href="*" className="Track-action">+</a>
+        <a href="*" className="Track-action"><!-- + or - will go here --> renderAction() </a>
       </div>          
     );
   }

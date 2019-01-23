@@ -15,11 +15,11 @@ class Track extends React.Component {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>name</h3> 
+          <h3>{this.props.track.name}</h3>
           <p>artistsName | albumName</p>
         </div>
         <a href="*" className="Track-action">- + or - will go here --> renderAction() </a>
-      </div>          
+      </div>
     );
   }
 }

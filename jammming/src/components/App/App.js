@@ -6,19 +6,27 @@ import SearchResults from '../SearchResults/SearchResults'
 import Playlist      from '../Playlist/Playlist'
 import Spotify       from '../../util/Spotify'
 
-// const track = {
-//   name: "雑草挽歌",
-//   artistsName: "おっさんバンド",
-//   albumName:"まけないぜ"
-// };
-
-// const searchedTracks = [track, track, track];
-// const playListTracks = [track];
-
 class App extends React.Component {
 
-  searchSpotify(term) {
-    Spotify.search(term);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchResults : [
+        {
+          id: "id1",
+          name: "雑草挽歌",
+          artist: "おっさんバンド",
+          album:"まけないぜ"
+        }, {
+          id: "id2",
+          name: "雑草2",
+          artist: "おっさんバンド",
+          album:"まけないぜ"
+        }
+      ]
+    };
+
   }
 
   render() {
@@ -27,8 +35,8 @@ class App extends React.Component {
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar />
-          <div className="App-playlist">          
-            <SearchResults />
+          <div className="App-playlist">
+            <SearchResults searchResults={this.state.searchResults} />
             <Playlist />
           </div>
         </div>

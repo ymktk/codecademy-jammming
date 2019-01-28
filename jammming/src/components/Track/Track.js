@@ -11,8 +11,6 @@ class Track extends React.Component {
     this.removeTrack  = this.removeTrack.bind(this);
     this.renderAction = this.renderAction.bind(this);
     this.clickAction  = this.clickAction.bind(this);
-
-    let action;
   }
 
   addTrack() {

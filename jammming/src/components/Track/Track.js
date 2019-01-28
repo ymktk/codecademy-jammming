@@ -3,6 +3,16 @@ import './Track.css';
 
 class Track extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack() {
+    this.props.onAdd(this.props.track);
+  }
+
   renderAction() {
     // TMP
     let isRemoval = false;
@@ -19,9 +29,10 @@ class Track extends React.Component {
       <div className="Track">
         <div className="Track-information">
           <h3>{this.props.track.name}</h3>
-          <p>artistsName | albumName</p>
+          <p>{this.props.track.artist} | {this.props.track.album}</p>
         </div>
-        <a href="*" className="Track-action">{this.renderAction()} </a>
+        {/* eslint-disable-next-line */}
+        <a className="Track-action" onClick={this.addTrack} >{this.renderAction()} </a>
       </div>
     );
   }

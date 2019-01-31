@@ -1,6 +1,8 @@
 const clientID = process.env.REACT_APP_CLIENT_ID;
 const redirectURI = 'http://localhost:3000/';
-const url = 'https://api.spotify.com/v1/search?type=track&q=';
+const searchUrl   = 'https://api.spotify.com/v1/search?type=track&q=';
+const meUrl       = 'https://api.spotify.com/v1/me';
+const usersUrl    = 'https://api.spotify.com/v1/users/';
 
 let accessToken='';
 let expiresIn='';
@@ -35,7 +37,7 @@ const Spotify = {
 
   async search (term) {
     const userAaccessToken = this.getAccessToken();
-    const endpoint = `${url}${term}`;
+    const endpoint = `${searchUrl}${term}`;
 
     try {
       const response = await fetch(endpoint, {
@@ -54,6 +56,85 @@ const Spotify = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  async savePlaylist(playlistName, trackURIs) {
+
+    // there are values saved to the method's two arguments. If not, return.
+
+    const userAaccessToken = this.getAccessToken();
+
+    // (1) GEt user's Spotify user ID
+    let id = '';
+    try {
+      const response = await fetch(meUrl, {
+        method:'GET',
+        headers:{
+          'Authorization': 'Bearer ' + userAaccessToken
+        }
+      });
+
+      if(response.ok){
+        const jsonResponse = await response.json();
+        // console.log(jsonResponse);
+        id = jsonResponse.id;
+
+      } else {
+        throw new Error('Request Failed');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    // (2) creates a new playlist, Get playlist ID
+    let playlistID = '';
+    try {
+      const response = await fetch(usersUrl + id + '/playlists', {
+        method:'POST',
+        headers:{
+          'Authorization': 'Bearer ' + userAaccessToken,
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({name:playlistName})
+      });
+
+      if(response.ok){
+        const jsonResponse = await response.json();
+        // console.log(jsonResponse);
+        playlistID = jsonResponse.id;
+
+      } else {
+        throw new Error('Request Failed');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    // (3) Post Tracks
+    try {
+      const response = await fetch(usersUrl + id + '/playlists/' +  playlistID + '/tracks', {
+        method:'POST',
+        headers:{
+          'Authorization': 'Bearer ' + userAaccessToken,
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({uris:trackURIs})
+      });
+
+      if(response.ok){
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+
+      } else {
+        throw new Error('Request Failed');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
 };

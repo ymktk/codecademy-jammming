@@ -12,35 +12,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      searchResults : [
-        {
-          id: "id1",
-          name: "雑草挽歌",
-          artist: "おっさんバンド",
-          album:"まけないぜ"
-        }, {
-          id: "id2",
-          name: "雑草2",
-          artist: "おっさんバンド",
-          album:"まけないぜ"
-        }
-      ],
-
-      playlistName : 'お気に入りりすと',
-
-      playlistTracks : [
-        {
-          id: "id3",
-          name: "ポンポコリン",
-          artist: "おどるバンド",
-          album:"ちびまるこ"
-        }, {
-          id: "id4",
-          name: "さんさん",
-          artist: "おばさんバンド",
-          album:"ダイエット"
-        }
-      ]
+      searchResults : [],
+      playlistName : 'My Favorite List',
+      playlistTracks : []
     };
 
     this.addTrack           = this.addTrack.bind(this);
@@ -78,14 +52,17 @@ class App extends React.Component {
   }
 
   updatePlaylistName(name) {
-    // console.log(name);
     this.setState (
       { playlistName : name }
     );
   }
 
-  search(term) {
-    Spotify.search(term);
+  async search(term) {
+    const results = await Spotify.search(term);
+    // console.log(results);
+    this.setState (
+      { searchResults : results }
+    );
   }
 
   savePlaylist() {

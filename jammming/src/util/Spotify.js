@@ -60,7 +60,15 @@ const Spotify = {
 
   async savePlaylist(playlistName, trackURIs) {
 
-    // there are values saved to the method's two arguments. If not, return.
+    if (!playlistName) {
+      console.log('playlistName is empty')
+      return;
+    }
+
+    if (trackURIs.length === 0) {
+      console.log('trackURIs is empty')
+      return;
+    }
 
     const userAaccessToken = this.getAccessToken();
 
@@ -76,7 +84,6 @@ const Spotify = {
 
       if(response.ok){
         const jsonResponse = await response.json();
-        // console.log(jsonResponse);
         id = jsonResponse.id;
 
       } else {
@@ -101,7 +108,6 @@ const Spotify = {
 
       if(response.ok){
         const jsonResponse = await response.json();
-        // console.log(jsonResponse);
         playlistID = jsonResponse.id;
 
       } else {
@@ -124,8 +130,8 @@ const Spotify = {
       });
 
       if(response.ok){
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);
+        await response.json();
+        return;
 
       } else {
         throw new Error('Request Failed');

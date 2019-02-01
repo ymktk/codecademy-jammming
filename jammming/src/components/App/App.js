@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.state = {
       searchResults : [],
-      playlistName : 'My Favorite List',
+      playlistName : 'New Playlist',
       playlistTracks : []
     };
 
@@ -59,7 +59,6 @@ class App extends React.Component {
 
   async search(term) {
     const results = await Spotify.search(term);
-    // console.log(results);
     this.setState (
       { searchResults : results }
     );
@@ -69,6 +68,11 @@ class App extends React.Component {
     const playlistName = this.state.playlistName;
     const trackURIs    = this.state.playlistTracks.map(track => {return track.uri;});
     await Spotify.savePlaylist(playlistName, trackURIs);
+
+    this.setState (
+      { playlistTracks: [],
+        playlistName : 'New Playlist' }
+    );
   }
 
   render() {
@@ -86,10 +90,10 @@ class App extends React.Component {
               onAdd={this.addTrack} />
 
             <Playlist
-              playlistTracks={this.state.playlistTracks}
-              onRemove={this.removeTrack}
               playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
               onNameChange={this.updatePlaylistName}
+              onRemove={this.removeTrack}
               onSave={this.savePlaylist} />
 
           </div>
